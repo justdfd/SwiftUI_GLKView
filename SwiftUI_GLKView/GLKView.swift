@@ -27,7 +27,6 @@ class ImageViewVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.layer.borderWidth = 1
         view = imageView
         NotificationCenter.default.addObserver(self, selector: #selector(updateImage), name: .updateImage, object: nil)
     }
@@ -107,6 +106,33 @@ class ImageView: GLKView {
         }
     }
     
+}
+class test {
+    class ImageViewVC: UIViewController {
+        var model: Model!
+        var imageView = ImageView()
+
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            imageView.layer.borderWidth = 1
+            view = imageView
+            NotificationCenter.default.addObserver(self, selector: #selector(updateImage), name: .updateImage, object: nil)
+        }
+        override func viewDidLayoutSubviews() {
+            imageView.setNeedsDisplay()
+        }
+        override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+            if traitCollection.userInterfaceStyle == .light {
+                imageView.clearColor = UIColor.white
+            } else {
+                imageView.clearColor = UIColor.black
+            }
+        }
+        @objc func updateImage() {
+            imageView.image = model.ciFinal
+            imageView.setNeedsDisplay()
+        }
+    }
 }
 extension UIColor {
     public func rgb() -> (Int?, Int?, Int?) {
