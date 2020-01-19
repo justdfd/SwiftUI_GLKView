@@ -9,8 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var model: Model
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            GLKViewerVC()
+            Button(action: {
+                self.showImage()
+            }) {
+                VStack {
+                    Image(systemName:"tv").font(Font.body.weight(.bold))
+                    Text("Show image").font(Font.body.weight(.bold))
+                }
+                .frame(width: 80, height: 80)
+            }
+        }
+    }
+    func showImage() {
+        NotificationCenter.default.post(name: .updateImage, object: nil, userInfo: nil)
     }
 }
 
